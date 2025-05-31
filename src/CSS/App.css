@@ -1,0 +1,104 @@
+.App {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background: #fafafa;
+  min-height: 100vh;
+}
+
+.App-header {
+  background: #333;
+  color: #fff;
+  padding: 30px 0;
+  font-size: 1.5rem;
+}
+
+.App-link {
+  color: #007acc;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+  width: 150px; /* фиксированная ширина столбцов */
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+th {
+  background: #007acc;
+  color: #fff;
+}
+
+tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+tr:hover {
+  background: #e6f2fa;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 5px;
+}
+
+.page-number {
+  padding: 4px 8px;
+  border: 1px solid #007acc;
+  border-radius: 100px;
+  cursor: pointer;
+  background: #fff;
+  color: #007acc;
+  transition: background 0.2s;
+}
+
+.page-number:hover,
+.page-number.active {
+  background: #007acc;
+  color: #fff;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: table-row;
+}
+
+table {
+  width: 80%;
+  margin: 20px auto 0 auto; /* центрируем таблицу */
+  border-collapse: collapse;
+}
+
+form {
+  text-align: left;
+  margin-left: 10%;
+}
+
+svg {
+    width: 800px;
+    height: 400px;
+}
+
+svg path, line {
+    fill: none;
+    stroke: black;
+    width: 1px;
+}
+ 
+svg text {
+    font: 8px Verdana;
+}
