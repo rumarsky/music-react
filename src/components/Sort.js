@@ -1,16 +1,7 @@
 import { useState } from 'react';
 
-/**
- * Компонент для сортировки данных таблицы по нескольким уровням
- * 
- * @param {Object} props - Свойства компонента:
- * @param {Function} props.sortering - Функция для передачи отсортированных данных в родительский компонент
- * @param {Array} props.fullData - Полный набор данных для сортировки
- * @param {Function} props.onFullReset - Функция для сброса всех фильтров и сортировки
- */
 const Sort = (props) => {
 
-    // Соответствие между техническими именами полей и их отображаемыми названиями
     const fieldMap = {
         "track": "Название трека",
         "artist": "Исполнитель",
@@ -22,17 +13,11 @@ const Sort = (props) => {
 
     // Состояние для хранения выбранных полей сортировки
     const [selectedFields, setSelectedFields] = useState({
-        level1: "0", // Первый уровень сортировки ("0" - не выбран)
+        level1: "0", // Первый уровень сортировки
         level2: "0", // Второй уровень сортировки
         level3: "0"  // Третий уровень сортировки
     });
 
-    /**
-     * Обработчик изменения выбранного поля сортировки
-     * 
-     * @param {string} level - Уровень сортировки ("level1", "level2", "level3")
-     * @param {string} value - Выбранное значение поля
-     */
     const handleFieldChange = (level, value) => {
         const newSelectedFields = {...selectedFields, [level]: value};
         
@@ -49,13 +34,6 @@ const Sort = (props) => {
         setSelectedFields(newSelectedFields);
     };
 
-    /**
-     * Получает доступные для выбора поля сортировки
-     * (исключает уже выбранные на других уровнях)
-     * 
-     * @param {string} currentLevel - Текущий уровень сортировки
-     * @returns {Array} Массив доступных опций в формате {value, label}
-     */
     const getAvailableOptions = (currentLevel) => {
         const usedFields = [];
         

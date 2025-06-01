@@ -7,6 +7,7 @@ const Chart = (props) => {
     const [oy, setOy] = useState([true, false]);
     const [chartType, setChartType] = useState("scatter");
     const [error, setError] = useState("");
+    const [highlightError, setHighlightError] = useState(false);
     
     const handleSubmit = (event) => {        
         event.preventDefault();
@@ -17,8 +18,10 @@ const Chart = (props) => {
         // Проверка что выбрана хотя бы одна ось OY
         if (!event.target["oy"][0].checked && !event.target["oy"][1].checked) {
             setError("Выберите хотя бы одно значение для оси OY");
+            setHighlightError(true);
         } else {
             setError("");
+            setHighlightError(false);
         }
     }
 
@@ -51,10 +54,10 @@ const Chart = (props) => {
                 </div>
 
                 <p> Значение по оси OY </p>
-                <div>
-                    <input type="checkbox" name="oy" defaultChecked={oy[0]} />
+                <div style={highlightError ? {color: "red", padding: "5px"} : {}}>
+                    <input type="checkbox" name="oy" defaultChecked={oy[0]} onChange={() => setHighlightError(false)} />
                     Максимальная высота <br/>
-                    <input type="checkbox" name="oy" defaultChecked={oy[1]} />
+                    <input type="checkbox" name="oy" defaultChecked={oy[1]} onChange={() => setHighlightError(false)} />
                     Минимальная высота
                 </div>
 
