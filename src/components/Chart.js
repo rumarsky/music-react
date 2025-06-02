@@ -17,7 +17,7 @@ const Chart = (props) => {
         
         // Проверка что выбрана хотя бы одна ось OY
         if (!event.target["oy"][0].checked && !event.target["oy"][1].checked) {
-            setError("Выберите хотя бы одно значение для оси OY");
+            setError(" ");
             setHighlightError(true);
         } else {
             setError("");
@@ -56,9 +56,9 @@ const Chart = (props) => {
                 <p> Значение по оси OY </p>
                 <div style={highlightError ? {color: "red", padding: "5px"} : {}}>
                     <input type="checkbox" name="oy" defaultChecked={oy[0]} onChange={() => setHighlightError(false)} />
-                    Максимальная высота <br/>
+                    Максимальные прослушивания <br/>
                     <input type="checkbox" name="oy" defaultChecked={oy[1]} onChange={() => setHighlightError(false)} />
-                    Минимальная высота
+                    Минимальные прослушивания
                 </div>
 
                 <p>Тип диаграммы:</p>

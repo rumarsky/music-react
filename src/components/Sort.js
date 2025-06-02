@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Sort = (props) => {
 
@@ -17,6 +17,18 @@ const Sort = (props) => {
         level2: "0", // Второй уровень сортировки
         level3: "0"  // Третий уровень сортировки
     });
+
+    // Сброс состояния сортировки при сбросе фильтрации
+    useEffect(() => {
+        if (props.resetRef.current) {
+            setSelectedFields({
+                level1: "0",
+                level2: "0",
+                level3: "0"
+            });
+            props.resetRef.current = false;
+        }
+    }, [props.resetRef.current]);
 
     const handleFieldChange = (level, value) => {
         const newSelectedFields = {...selectedFields, [level]: value};
@@ -37,7 +49,7 @@ const Sort = (props) => {
     const getAvailableOptions = (currentLevel) => {
         const usedFields = [];
         
-        // Собираем все уже выбранные поля (кроме текущего уровня)
+        // Собираем все уже выбранные поля
         if (currentLevel !== "level1" && selectedFields.level1 !== "0") usedFields.push(selectedFields.level1);
         if (currentLevel !== "level2" && selectedFields.level2 !== "0") usedFields.push(selectedFields.level2);
         if (currentLevel !== "level3" && selectedFields.level3 !== "0") usedFields.push(selectedFields.level3);
@@ -77,7 +89,7 @@ const Sort = (props) => {
         // Копируем данные для сортировки
         let arr = [...props.fullData];
         
-        // Применяем сортировку, начиная с третьего уровня (чтобы приоритет был у первого)
+        // Применяем сортировку
         sorts.reverse().forEach(s => {
             arr.sort((a,b) => {
                 const value_a = a[s.field];

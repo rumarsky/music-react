@@ -1,7 +1,14 @@
 // Компонент для фильтрации данных таблицы
 // Предоставляет форму с полями для фильтрации по всем столбцам
+import { useState, useRef, useEffect } from 'react';
 
 const Filter = (props) => {
+  useEffect(() => {
+        if (props.resetRef.current) {
+            props.resetRef.current = false;
+        }
+    }, [props.resetRef.current]);
+
   // Обработчик отправки формы фильтрации
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -51,7 +58,7 @@ const Filter = (props) => {
 
   // Сбрасывает фильтры, восстанавливая исходные данные
   const handleClear = () => {
-    props.filtering(props.fullData);
+    props.onFullReset();
   };
 
   return (

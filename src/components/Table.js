@@ -2,7 +2,7 @@ import TableHead from './TableHead.js';
 import TableBody from './TableBody.js';
 import Filter from './Filter.js';
 import Sort from './Sort.js';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 /*
  компонент, выводящий на страницу таблицу
  пропсы:
@@ -14,16 +14,21 @@ const Table = (props) => {
     const [filteredData, setFilteredData] = useState(props.data);
     const [sortedData, setSortedData] = useState(props.data);
     const [resetKey, setResetKey] = useState(0);
+
+    const resetRef = useRef(false);
     
     const changeActive = (event) => {
         setActivePage(event.target.innerHTML);
     };
 
     const handleFullReset = () => {
+        resetRef.current = true;
         setFilteredData(props.data);
         setSortedData(props.data);
         setActivePage(1);
         setResetKey(prev => prev + 1);
+
+        props.onFilter(props.data);
     };
 
     const handleFilter = (filteredValues) => {
@@ -39,6 +44,12 @@ const Table = (props) => {
         setActivePage(1);
     };
 
+    useEffect(() => {
+        if (resetRef.current) {
+            resetRef.current = false;
+        }
+    }, [filteredData]);
+
     const showPagination = props.showPagination !== false;
     const rowsToShow = showPagination ? props.amountRows : sortedData.length;
     
@@ -53,8 +64,8 @@ const Table = (props) => {
     
     return (
         <>
-            <Filter key={`filter-${resetKey}`} filtering={handleFilter} data={sortedData} fullData={props.data} onFullReset={handleFullReset}/>
-            <Sort key={`sort-${resetKey}`} sortering={handleSort} fullData={filteredData} onFullReset={handleFullReset}/>
+            <Filter key={`filter-${resetKey}`} filtering={handleFilter} data={sortedData} fullData={props.data} onFullReset={handleFullReset} resetRef={resetRef}/>
+            <Sort key={`sort-${resetKey}`} sortering={handleSort} fullData={filteredData} onFullReset={handleFullReset} resetRef={resetRef}/>
             <table>
                 <TableHead head={Object.keys(props.data[0])} />
                 <TableBody body={sortedData} amountRows={rowsToShow} numPage={activePage}/>
